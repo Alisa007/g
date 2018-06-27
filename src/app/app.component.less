@@ -1,0 +1,20 @@
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import '@swimlane/ngx-dnd/release/index.css';
+
+:host {
+  ngx-dnd-container {
+    min-height: 90vh;
+    display: block;
+    vertical-align: top;
+
+    .ngx-dnd-container {
+      min-height: 90vh;
+    }
+
+    /deep/ .ngx-dnd-container.gu-empty {
+      border-color: gray;
+      background-color: white;
+      min-height: 300px;
+    }
+  }
+}

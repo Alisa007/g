@@ -1,0 +1,74 @@
+<div class="label" *ngIf="model.canEdit">
+  <ge-input
+    [model]="labelInputModel"
+    (modelChange)="labelChange.emit($event)"
+  ></ge-input>
+
+  <ge-input
+    *ngIf="model.canEdit"
+    [model]="requiredInputModel"
+    (modelChange)="$event ? require.emit() : unrequire.emit()"
+  ></ge-input>
+</div>
+
+<div class="input" [ngSwitch]="model.type">
+  <div [class.mt-4]="model.canEdit" *ngSwitchCase="inputTypeEnum.Checkbox">
+    <mat-checkbox [ngModel]="model.value" (ngModelChange)="modelChange.emit($event)">
+      {{ model.label }}
+    </mat-checkbox>
+  </div>
+
+  <mat-form-field *ngSwitchCase="inputTypeEnum.Text">
+    <input
+      matInput
+      [placeholder]="model.label"
+      [required]="model.isRequired"
+      [ngModel]="model.value"
+      (ngModelChange)="modelChange.emit($event)"
+    >
+  </mat-form-field>
+
+  <mat-form-field *ngSwitchCase="inputTypeEnum.TextArea">
+    <textarea
+      matInput rows="1"
+      [placeholder]="model.label"
+      [required]="model.isRequired"
+      [ngModel]="model.value"
+      (ngModelChange)="modelChange.emit($event)"
+    ></textarea>
+  </mat-form-field>
+
+  <ge-radio
+    [model]="model"
+    (modelChange)="modelChange.emit($event)"
+    (addOption)="addOption.emit($event)"
+    (updateOption)="updateOption.emit($event)"
+    (deleteOption)="deleteOption.emit($event)"
+    *ngSwitchCase="inputTypeEnum.Radio"
+  ></ge-radio>
+
+  <ge-select
+    [model]="model"
+    (modelChange)="modelChange.emit($event)"
+    (addOption)="addOption.emit($event)"
+    (updateOption)="updateOption.emit($event)"
+    (deleteOption)="deleteOption.emit($event)"
+    *ngSwitchCase="inputTypeEnum.Select"
+  ></ge-select>
+
+  <ge-file-drop
+    [model]="model"
+    (modelChange)="modelChange.emit($event)"
+    *ngSwitchCase="inputTypeEnum.File"
+  ></ge-file-drop>
+</div>
+
+<div class="action" *ngIf="model.canDelete">
+  <button mat-icon-button (click)="delete.emit()">
+    <mat-icon>clear</mat-icon>
+  </button>
+</div>
+
+<ge-error
+  [type]="model.errorType"
+></ge-error>

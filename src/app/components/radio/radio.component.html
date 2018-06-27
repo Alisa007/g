@@ -1,0 +1,18 @@
+<mat-radio-group>
+  <div *ngFor="let option of model.options; let i = index;">
+    <mat-radio-button [value]="option">
+      <ge-input [model]="{
+        value: option,
+        type: 0,
+        canDelete: true
+      }"
+      (modelChange)="updateOption.emit({ optionIndex: i, option: $event })"
+      (delete)="deleteOption.emit(i)"></ge-input>
+    </mat-radio-button>
+  </div>
+
+  <button mat-raised-button (click)="addOption.emit()" color="accent">
+    <mat-icon>add</mat-icon>
+    Add radio button
+  </button>
+</mat-radio-group>

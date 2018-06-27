@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <ngx-dnd-container
+        ngxDroppable
+        [copy]="true"
+        [dropZones]="['oneway-target']"
+      >
+        <mat-card *ngFor="let input of inputs$ | async; let i = index;" class="mb-1">
+          <ge-input
+            ngxDraggable
+            [model]="input"
+            (labelChange)="updateLabel(i, $event)"
+            (modelChange)="updateValue(i, $event)"
+            (require)="require(i)"
+            (unrequire)="unrequire(i)"
+            (addOption)="addOption(i, $event)"
+            (updateOption)="updateOption(i, $event)"
+            (deleteOption)="deleteOption(i, $event)"
+          ></ge-input>
+        </mat-card>
+      </ngx-dnd-container>
+    </div>
+    <div class="col-md-7">
+      <ngx-dnd-container
+        dropZone="oneway-target"
+        [model]="form"
+        [removeOnSpill]="true"
+        (drag)="removeField($event)"
+        (drop)="addField($event)">
+      </ngx-dnd-container>
+    </div>
+  </div>
+</div>

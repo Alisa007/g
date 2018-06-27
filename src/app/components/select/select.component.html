@@ -1,0 +1,21 @@
+<mat-select placeholder="Select">
+  <mat-option *ngFor="let option of model.options">
+    {{ option }}
+  </mat-option>
+</mat-select>
+
+<ge-input
+  *ngFor="let option of model.options; let i = index;"
+  [model]="{
+    value: option,
+    type: 0,
+    canDelete: true
+  }"
+  (modelChange)="updateOption.emit({ optionIndex: i, option: $event })"
+  (delete)="deleteOption.emit(i)"
+></ge-input>
+
+<button mat-raised-button (click)="addOption.emit()" color="accent">
+  <mat-icon>add</mat-icon>
+  Add select option
+</button>

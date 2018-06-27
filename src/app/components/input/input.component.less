@@ -1,0 +1,44 @@
+@tablet: ~'only screen and (min-device-width: 768px)';
+
+:host {
+  display: block;
+  position: relative;
+
+  .label {
+    width: 100%;
+    display: block;
+
+    @media @tablet {
+      width: 30%;
+      display: inline-block;
+    }
+  }
+
+  .input {
+    width: 100%;
+    display: block;
+
+    @media @tablet {
+      width: 90%;
+      display: inline-block;
+    }
+  }
+
+  .label + .input {
+    @media @tablet {
+      width: 70%;
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+
+  .action {
+    position: absolute;
+    right: -20px;
+    top: 10px;
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}
