@@ -1,7 +1,7 @@
 <div class="label" *ngIf="model.canEdit">
   <ge-input
     [model]="labelInputModel"
-    (modelChange)="labelChange.emit($event)"
+    (modelChange)="labelChange.emit($event); validate.emit()"
   ></ge-input>
 
   <ge-input

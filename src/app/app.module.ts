@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxDnDModule } from '@swimlane/ngx-dnd';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FileDropModule } from 'ngx-file-drop';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatButtonModule,
   MatCheckboxModule,
@@ -15,6 +16,7 @@ import {
   MatInputModule,
   MatIconModule,
 } from '@angular/material';
+import 'rxjs/Rx';
 
 import { AppComponent } from './app.component';
 import { InputComponent } from './components/input/input.component';
@@ -24,8 +26,6 @@ import { RadioComponent } from './components/radio/radio.component';
 import { SelectComponent } from './components/select/select.component';
 
 import { formReducer } from './reducers/form.reducer';
-import {FormsModule} from '@angular/forms';
-
 import { FormActions } from './actions/form.actions';
 
 @NgModule({

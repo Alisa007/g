@@ -9,25 +9,31 @@ import {
   ADD_OPTION,
   UPDATE_OPTION,
   DELETE_OPTION,
+  VALIDATE,
 } from '../actions/form.actions';
-import {ErrorTypeEnum } from '../enums/ErrorType.enum';
+import { ErrorTypeEnum } from '../enums/ErrorType.enum';
+import { InputTypeEnum } from '../enums/InputType.enum';
+
 const update = Object.assign;
 const getError = (index, inputs): ErrorTypeEnum => {
   const input = inputs[index];
+  const notCurrent = (arr) => arr.filter(v => v.type !== input.type);
 
   if (input.isRequired && !input.value) {
     return ErrorTypeEnum.Required;
   }
 
-  if (inputs.find(v => (v.type !== input.type) && (v.label === input.label))) {
+  if (notCurrent(inputs).find(v => v.label === input.label)) {
     return  ErrorTypeEnum.Unique;
   }
 
-  if (input.options.filter(v => v).length) {
+  const canHaveOptions = (input.type === InputTypeEnum.Select) || (input.type === InputTypeEnum.Radio);
+
+  if (canHaveOptions && !input.options.filter(v => v).length) {
     return  ErrorTypeEnum.HasOptions;
   }
 
-  if (input.options.find(v => (v.type !== input.type) && (v === input.label))) {
+  if (notCurrent(input.options).find(v => v === input.label)) {
     return ErrorTypeEnum.UniqueOptions;
   }
 
@@ -70,7 +76,6 @@ export const formReducer = (state = { data: [], inputs: [] }, action) => {
           {[action.payload.index]: {
               ...state.inputs[action.payload.index],
               label: action.payload.label,
-              errorType: getError(action.payload.index, state.inputs),
             }}
           ),
       };
@@ -83,7 +88,6 @@ export const formReducer = (state = { data: [], inputs: [] }, action) => {
           {[action.payload.index]: {
               ...state.inputs[action.payload.index],
               value: action.payload.value,
-              errorType: getError(action.payload.index, state.inputs),
             }}
         ),
       };
@@ -96,7 +100,6 @@ export const formReducer = (state = { data: [], inputs: [] }, action) => {
           {[action.payload]: {
               ...state.inputs[action.payload],
               isRequired: true,
-              errorType: getError(action.payload, state.inputs),
             }}
         ),
       };
@@ -109,7 +112,6 @@ export const formReducer = (state = { data: [], inputs: [] }, action) => {
           {[action.payload]: {
               ...state.inputs[action.payload],
               isRequired: false,
-              errorType: getError(action.payload, state.inputs),
             }},
         ),
       };
@@ -127,7 +129,6 @@ export const formReducer = (state = { data: [], inputs: [] }, action) => {
                 ...(state.inputs[inputIndex].options || []),
                 action.payload.option,
               ],
-              errorType: getError(inputIndex, state.inputs),
             }}
         ),
       };
@@ -147,7 +148,6 @@ export const formReducer = (state = { data: [], inputs: [] }, action) => {
                   [action.payload.optionIndex]: action.payload.option
                 },
               ),
-              errorType: getError(inputIndex, state.inputs),
             }}
         ),
       };
@@ -163,12 +163,22 @@ export const formReducer = (state = { data: [], inputs: [] }, action) => {
               ...state.inputs[inputIndex],
               options: state.inputs[inputIndex].options
                 .filter((_, index) => action.payload.optionIndex !== index),
-              errorType: getError(inputIndex, state.inputs),
             }}
         ),
       };
     }
-
+    case VALIDATE: {
+      return {
+        ...state,
+        inputs: update(
+          [...state.inputs],
+          {[action.payload]: {
+              ...state.inputs[action.payload],
+              errorType: getError(action.payload, state.inputs),
+            }}
+        ),
+      };
+    }
     default: {
       return state;
     }

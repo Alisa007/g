@@ -1,6 +1,6 @@
-import {Component, Input} from '@angular/core';
-import { UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
-import {InputModel} from '../../models/Input.model';
+import { Component, Input } from '@angular/core';
+import { UploadEvent, UploadFile, FileSystemFileEntry } from 'ngx-file-drop';
+import { InputModel } from '../../models/Input.model';
 
 @Component({
   selector: 'ge-file-drop',
@@ -21,23 +21,16 @@ export class FileDropComponent {
 
         fileEntry.file((file: File) => {
           console.log(droppedFile.relativePath, file);
-
-          /**
-           // You could upload it like this:
-           const formData = new FormData()
-           formData.append('logo', file, relativePath)
-           **/
-
         });
       }
     }
   }
 
-  public fileOver(event){
+  public fileOver(event) {
     console.log(event);
   }
 
-  public fileLeave(event){
+  public fileLeave(event) {
     console.log(event);
   }
 }

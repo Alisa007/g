@@ -1,11 +1,9 @@
 import { Component, Input } from '@angular/core';
-
 import { ErrorTypeEnum } from '../../enums/ErrorType.enum';
 
 @Component({
   selector: 'ge-error',
   templateUrl: './error.component.html',
-  styleUrls: ['./error.component.scss']
 })
 export class ErrorComponent {
   get type(): ErrorTypeEnum {

@@ -1,5 +1,5 @@
-import {InputTypeEnum} from '../enums/InputType.enum';
-import {ErrorTypeEnum} from '../enums/ErrorType.enum';
+import { InputTypeEnum } from '../enums/InputType.enum';
+import { ErrorTypeEnum } from '../enums/ErrorType.enum';
 
 export class InputModel {
   label: string;

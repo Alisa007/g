@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 export const ADD_FIELD = 'ADD_FIELD';
 export const REMOVE_FIELD = 'REMOVE_FIELD';
@@ -10,6 +10,7 @@ export const UNREQUIRE_INPUT = 'UNREQUIRE_INPUT';
 export const ADD_OPTION = 'ADD_OPTION';
 export const UPDATE_OPTION = 'UPDATE_OPTION';
 export const DELETE_OPTION = 'DELETE_OPTION';
+export const VALIDATE = 'VALIDATE';
 
 @Injectable()
 export class FormActions {
@@ -80,6 +81,13 @@ export class FormActions {
     return {
       type: DELETE_OPTION,
       payload: { inputIndex, optionIndex },
+    };
+  }
+
+  validate(index) {
+    return {
+      type: VALIDATE,
+      payload: index,
     };
   }
 }

@@ -1,15 +1,10 @@
-import {Component, Inject} from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/internal/Observable';
 
 import { InputTypeEnum } from './enums/InputType.enum';
-import {ErrorTypeEnum} from './enums/ErrorType.enum';
-import {InputModel} from './models/Input.model';
-
-import {
-  REMOVE_FIELD,
-  FormActions,
-} from './actions/form.actions';
-import {Observable} from 'rxjs/internal/Observable';
+import { InputModel } from './models/Input.model';
+import { FormActions } from './actions/form.actions';
 
 interface AppState {
   form: {
@@ -26,7 +21,6 @@ export class AppComponent {
   form: any;
 
   inputs$: Observable<InputModel[]>;
-  fields$: Observable<InputModel>;
 
   constructor(private store: Store<AppState>, private formActions: FormActions) {
     this.setInputs();
@@ -38,7 +32,11 @@ export class AppComponent {
   }
 
   removeField(formField) {
-    this.store.dispatch({ type: REMOVE_FIELD, payload: formField });
+    this.store.dispatch(this.formActions.removeField(formField));
+  }
+
+  validate(index) {
+    this.store.dispatch(this.formActions.validate(index));
   }
 
   setInputs() {

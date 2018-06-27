@@ -1,6 +1,6 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {InputTypeEnum} from '../../enums/InputType.enum';
-import {InputModel} from '../../models/Input.model';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { InputTypeEnum } from '../../enums/InputType.enum';
+import { InputModel } from '../../models/Input.model';
 
 @Component({
   selector: 'ge-input',
@@ -33,10 +33,10 @@ export class InputComponent {
   @Output() labelChange = new EventEmitter();
   @Output() require = new EventEmitter();
   @Output() unrequire = new EventEmitter();
-
   @Output() addOption = new EventEmitter();
   @Output() updateOption = new EventEmitter();
   @Output() deleteOption = new EventEmitter();
+  @Output() validate = new EventEmitter();
 
   private _model: InputModel;
   inputTypeEnum = InputTypeEnum;
